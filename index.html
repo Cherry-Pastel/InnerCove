@@ -1,0 +1,802 @@
+# 《心嶼之境》
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>心嶼之境</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: linear-gradient(-45deg, #1C2E4A, #244166, #2B4C7E, #355f99);
+      background-size: 400% 400%;
+      animation: oceanFlow 18s ease infinite;
+      color: white;
+      transition: background 1.2s ease;
+    }
+
+    @keyframes oceanFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .serif-title {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .hero-overlay {
+      background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 50%);
+    }
+
+    .floating-light {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      filter: blur(50px);
+      animation: floatLight 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatLight {
+      from {
+        transform: translateY(0px) translateX(0px);
+      }
+      to {
+        transform: translateY(30px) translateX(40px);
+      }
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all .35s ease;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: rgba(255,255,255,0.22);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .flip-card {
+      background-color: transparent;
+      perspective: 1200px;
+      width: 100%;
+      max-width: 320px;
+      min-height: 520px;
+      margin: auto;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .flip-card-front {
+      background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+
+    .flip-card-back {
+      background: rgba(255,255,255,0.12);
+      transform: rotateY(180deg);
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .card-hover {
+      transition: transform .35s ease;
+    }
+
+    .card-hover:hover {
+      transform: scale(1.03);
+    }
+
+    .card-label {
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .ocean-divider {
+      width: 120px;
+      height: 1px;
+      background: rgba(255,255,255,0.35);
+      margin: 20px auto;
+    }
+
+    .footer-glow {
+      background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+    }
+
+    @media (max-width: 768px) {
+      .flip-card {
+        min-height: 560px;
+      }
+
+      .flip-card-inner {
+        min-height: 560px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden">
+
+    <div class="floating-light top-0 left-0"></div>
+    <div class="floating-light bottom-0 right-0"></div>
+
+    <div class="hero-overlay absolute inset-0"></div>
+
+    <div class="relative z-10 max-w-4xl fade-in">
+      <p class="tracking-[0.5em] uppercase text-white/70 mb-4 text-sm md:text-base">
+        Psychological Projection Cards
+      </p>
+
+      <h1 class="serif-title text-6xl md:text-8xl font-semibold mb-6 leading-tight">
+        心嶼之境
+      </h1>
+
+      <div class="ocean-divider"></div>
+
+      <p class="text-lg md:text-2xl text-white/85 leading-relaxed mb-10">
+        在海與天之間，看見此刻的自己
+      </p>
+
+      <a href="#explore" class="btn-main inline-block px-10 py-4 rounded-full text-lg tracking-wide backdrop-blur-md">
+        開始探索
+      </a>
+    </div>
+  </section>
+
+  <!-- Explore -->
+  <section id="explore" class="py-24 px-4 md:px-8">
+
+    <div class="max-w-7xl mx-auto text-center">
+
+      <h2 class="serif-title text-4xl md:text-6xl mb-6">
+        抽一座島，看見內在風景
+      </h2>
+
+      <p class="text-white/75 max-w-2xl mx-auto leading-8 mb-14 text-base md:text-lg">
+        每一次抽牌，都是一次與內在相遇的旅程。<br>
+        此刻的你，正站在哪一片海域之中？
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row gap-5 justify-center mb-16">
+        <button id="singleBtn" class="btn-main px-8 py-4 rounded-full text-lg">
+          抽一座島
+        </button>
+
+        <button id="tripleBtn" class="btn-main px-8 py-4 rounded-full text-lg">
+          三島陣探索
+        </button>
+
+        <button id="resetBtn" class="btn-main px-8 py-4 rounded-full text-lg">
+          重新抽牌
+        </button>
+      </div>
+
+      <!-- Result -->
+      <div id="resultArea" class="fade-in"></div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative py-24 px-6 text-center overflow-hidden">
+    <div class="footer-glow absolute inset-0"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto">
+      <p class="serif-title text-3xl md:text-4xl mb-8 leading-relaxed">
+        每一座島，都是你的一種狀態。
+      </p>
+
+      <p class="text-white/75 text-lg leading-9">
+        願你在海上航行時，記得溫柔對待自己。
+      </p>
+    </div>
+  </footer>
+
+  <script>
+
+    // =========================
+    // 卡牌資料
+    // =========================
+
+    const deck = [
+      {
+        id: 1,
+        name: '初升之島',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '新的開始正在靠近你。',
+        description: '你正在離開某段舊的循環。雖然尚未完全看清未來，但內心已開始萌生新的期待。這張牌象徵重新啟程、甦醒與柔軟的希望。',
+        advice: '允許自己慢慢開始，不必一次做到完美。'
+      },
+      {
+        id: 2,
+        name: '雙峰守望',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正同時背負兩種責任。',
+        description: '內心有兩股力量拉扯著你，一邊渴望自由，一邊渴望穩定。你可能正在重要抉擇前徘徊。',
+        advice: '不要急著選邊站，先理解自己真正重視的是什麼。'
+      },
+      {
+        id: 3,
+        name: '舒語海群',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你的心需要休息。',
+        description: '長時間的緊繃讓你的情緒開始疲乏。你不是沒有力量，而是太久沒有停下來傾聽自己。',
+        advice: '安排一段真正屬於自己的安靜時間。'
+      },
+      {
+        id: 4,
+        name: '環湖海域',
+        image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在保護某個脆弱的部分。',
+        description: '你築起了界線，也因此與部分情感隔開。這不是錯，而是一種自我保護。',
+        advice: '慢慢練習信任值得靠近的人。'
+      },
+      {
+        id: 5,
+        name: '金字曙影',
+        image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在尋找更高層次的意義。',
+        description: '近期的你開始思考人生方向，而不只是眼前的成果。你渴望一種更深的存在感。',
+        advice: '寫下你真正想成為的人。'
+      },
+      {
+        id: 6,
+        name: '燈塔守夜',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你比自己想像中更堅強。',
+        description: '即使身處黑夜，你依然努力維持光亮。這張牌象徵責任感與穩定的陪伴力量。',
+        advice: '不要忘記照顧那個總在照亮別人的自己。'
+      },
+      {
+        id: 7,
+        name: '晚雨孤島',
+        image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '情緒正在尋找出口。',
+        description: '你近期可能壓抑了太多感受。這張牌提醒你，眼淚並不代表脆弱。',
+        advice: '允許自己被理解，而不是永遠堅強。'
+      },
+      {
+        id: 8,
+        name: '雷鳴火山島',
+        image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '壓抑已久的能量即將爆發。',
+        description: '你可能長期隱忍，內心其實累積了許多怒氣與委屈。',
+        advice: '不要等到崩潰才處理情緒。'
+      },
+      {
+        id: 9,
+        name: '雨中花易',
+        image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '溫柔依然能在困境中綻放。',
+        description: '你經歷過低潮，但仍保有善意。這是一種非常珍貴的力量。',
+        advice: '別因世界冷漠而失去自己的柔軟。'
+      },
+      {
+        id: 10,
+        name: '漂泊之島',
+        image: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在尋找歸屬感。',
+        description: '近期你可能感到與周遭格格不入。其實你只是還沒找到真正適合自己的位置。',
+        advice: '停止勉強自己融入不舒服的環境。'
+      },
+      {
+        id: 11,
+        name: '迷霧群島',
+        image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '答案還沒有完全浮現。',
+        description: '你正處於模糊期。雖然看不清方向，但其實內在正在醞釀改變。',
+        advice: '別急著得到答案，先陪伴自己的不安。'
+      },
+      {
+        id: 12,
+        name: '雨後彩光',
+        image: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '低潮之後，新的希望正在出現。',
+        description: '你經歷的痛苦並沒有白費，它正在重新塑造你的內在力量。',
+        advice: '相信那些撐過來的日子，都會成為禮物。'
+      },
+      {
+        id: 13,
+        name: '浮空島',
+        image: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你渴望逃離現實壓力。',
+        description: '近期的責任與期待讓你感到窒息，因此內心開始幻想另一種生活。',
+        advice: '先讓自己喘口氣，再思考真正想改變的是什麼。'
+      },
+      {
+        id: 14,
+        name: '雲端之島',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在靠近理想。',
+        description: '雖然過程仍艱難，但你其實比自己想像中更接近目標。',
+        advice: '持續前進，不要因短暫疲憊而否定努力。'
+      },
+      {
+        id: 15,
+        name: '雪中山峰',
+        image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你擁有沉靜而穩定的力量。',
+        description: '你習慣獨自承受壓力，即使不說出口，也默默撐起許多事情。',
+        advice: '試著讓別人看見你的辛苦。'
+      },
+      {
+        id: 16,
+        name: '拾霧之丘',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在慢慢找回自己。',
+        description: '曾經混亂的情緒開始沉澱，你開始願意重新理解內在需求。',
+        advice: '持續靠近真正讓你平靜的人事物。'
+      },
+      {
+        id: 17,
+        name: '夜景島',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '孤獨感正在提醒你需要陪伴。',
+        description: '你可能習慣獨處，但內心其實期待被理解。',
+        advice: '主動向信任的人靠近。'
+      },
+      {
+        id: 18,
+        name: '雲下地境',
+        image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '壓力並不會永遠覆蓋天空。',
+        description: '現在的你像被厚雲包圍，但其實光仍存在。',
+        advice: '不要只看見問題，也要看見自己仍在前進。'
+      },
+      {
+        id: 19,
+        name: '漩渦之島',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正陷入反覆思考。',
+        description: '過度分析讓你停留原地。你其實已知道答案，只是不敢行動。',
+        advice: '先做出小小一步，而不是等待完全確定。'
+      },
+      {
+        id: 20,
+        name: '潮汐島',
+        image: 'https://images.unsplash.com/photo-1493558103817-58b2924bce98?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '情緒有其自然節奏。',
+        description: '近期的你可能情緒起伏較大，但這並不代表你失控。',
+        advice: '不要責怪自己的敏感。'
+      },
+      {
+        id: 21,
+        name: '冰山島',
+        image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你隱藏了太多真實感受。',
+        description: '表面平靜的你，其實內在有龐大的情緒尚未被看見。',
+        advice: '試著用安全的方式表達真正的感受。'
+      },
+      {
+        id: 22,
+        name: '霧嶼海灘',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你需要重新放慢腳步。',
+        description: '長期的忙碌讓你忘記生活原本的感受。',
+        advice: '給自己一段沒有目標的時間。'
+      },
+      {
+        id: 23,
+        name: '遙航之島',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '遠方正在召喚你。',
+        description: '你內在有一部分已經準備改變，只是現實仍讓你猶豫。',
+        advice: '別因害怕失敗而拒絕新的旅程。'
+      },
+      {
+        id: 24,
+        name: '碎岸群島',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '有些關係正在改變。',
+        description: '你正在經歷某種分離感，可能來自人際、情感或價值觀差異。',
+        advice: '接受改變，才能迎來新的連結。'
+      },
+      {
+        id: 25,
+        name: '花樹悠島',
+        image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你的心仍保有純真。',
+        description: '即使經歷許多事，你依然願意相信美好。這是一種珍貴能力。',
+        advice: '保護自己的溫柔，但不必討好所有人。'
+      },
+      {
+        id: 26,
+        name: '靜村暮峰',
+        image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你渴望安穩與歸屬。',
+        description: '近期的你開始重視真正讓內心平靜的生活方式。',
+        advice: '把能量留給真正重要的人與事。'
+      },
+      {
+        id: 27,
+        name: '枯島',
+        image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你需要重新灌溉內心。',
+        description: '長期付出讓你感到耗竭，你已很久沒有真正照顧自己。',
+        advice: '先恢復自己的能量，再繼續前進。'
+      },
+      {
+        id: 28,
+        name: '重生之島',
+        image: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '某種新的生命力正在甦醒。',
+        description: '你正在經歷轉化期。雖然仍有不安，但內在已開始長出新的力量。',
+        advice: '相信自己有重新開始的能力。'
+      },
+      {
+        id: 29,
+        name: '隱居小徑',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你需要短暫離開喧囂。',
+        description: '外界資訊太多，讓你難以聽見自己的聲音。',
+        advice: '減少干擾，回到內心。'
+      },
+      {
+        id: 30,
+        name: '光柱之島',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你的存在正在照亮某些人。',
+        description: '即使你沒有察覺，你的溫柔與陪伴已經帶給別人力量。',
+        advice: '不要低估自己的價值。'
+      },
+      {
+        id: 31,
+        name: '心形島',
+        image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '愛與被愛都是需要練習的。',
+        description: '你內在其實很渴望親密關係，只是也害怕受傷。',
+        advice: '誠實面對自己的情感需求。'
+      },
+      {
+        id: 32,
+        name: '迷宮島',
+        image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在尋找真正出口。',
+        description: '生活中有些事情讓你反覆困住，但其實你已經逐漸接近答案。',
+        advice: '停止繞圈，開始直視核心問題。'
+      },
+      {
+        id: 33,
+        name: '月光島',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你的直覺正在提醒你什麼。',
+        description: '近期你可能對某些事特別敏感，那其實是內在訊號。',
+        advice: '相信自己的感受，而不只是理性分析。'
+      },
+      {
+        id: 34,
+        name: '倒影島',
+        image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你正在重新看見真實自己。',
+        description: '近期的事件像一面鏡子，讓你重新理解自己的需求與傷口。',
+        advice: '別急著否定自己的一切感受。'
+      },
+      {
+        id: 35,
+        name: '透明島',
+        image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '你渴望被真正理解。',
+        description: '你一直努力維持平靜，但內心其實期待有人能看見真正的你。',
+        advice: '試著說出那些你總藏起來的情緒。'
+      },
+      {
+        id: 36,
+        name: '星雨之島',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+        shortMessage: '願望正在悄悄靠近。',
+        description: '近期的你或許疲憊，但宇宙仍在替你保留希望。',
+        advice: '別放棄心裡真正想完成的事情。'
+      }
+    ];
+
+    // =========================
+    // DOM
+    // =========================
+
+    const resultArea = document.getElementById('resultArea');
+    const singleBtn = document.getElementById('singleBtn');
+    const tripleBtn = document.getElementById('tripleBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let usedCards = [];
+
+    // =========================
+    // 背景變色
+    // =========================
+
+    function changeBackground() {
+      const gradients = [
+        'linear-gradient(-45deg, #1C2E4A, #244166, #2B4C7E, #355f99)',
+        'linear-gradient(-45deg, #2B3A67, #496A81, #6699CC, #4A6FA5)',
+        'linear-gradient(-45deg, #243B55, #141E30, #365C7D, #4B79A1)',
+        'linear-gradient(-45deg, #1D4350, #A43931, #355C7D, #6C5B7B)',
+        'linear-gradient(-45deg, #355C7D, #6C5B7B, #C06C84, #355C7D)'
+      ];
+
+      document.body.style.background = gradients[Math.floor(Math.random() * gradients.length)];
+      document.body.style.backgroundSize = '400% 400%';
+    }
+
+    // =========================
+    // 洗牌
+    // =========================
+
+    function getRandomCard() {
+      const availableCards = deck.filter(card => !usedCards.includes(card.id));
+
+      if (availableCards.length === 0) {
+        usedCards = [];
+      }
+
+      const randomCard = availableCards[Math.floor(Math.random() * availableCards.length)];
+
+      usedCards.push(randomCard.id);
+
+      return randomCard;
+    }
+
+    // =========================
+    // 卡片 HTML
+    // =========================
+
+    function createCard(card, label = '') {
+      return `
+        <div class="flip-card card-hover fade-in mt-6">
+          <div class="flip-card-inner">
+
+            <div class="flip-card-front p-8">
+              <div class="text-white/60 text-sm tracking-[0.4em] mb-4">
+                心 嶼 之 境
+              </div>
+
+              <div class="serif-title text-4xl mb-5">
+                ${label || '靜待翻牌'}
+              </div>
+
+              <div class="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center text-4xl">
+                ✧
+              </div>
+
+              <p class="mt-8 text-white/70 leading-8">
+                點擊卡牌<br>
+                看見此刻的內在風景
+              </p>
+            </div>
+
+            <div class="flip-card-back glass-card text-left">
+
+              <img src="${card.image}" alt="${card.name}" class="card-image">
+
+              <div class="p-6 md:p-7">
+
+                ${label ? `<div class="card-label text-sm text-white/60 mb-3">${label}</div>` : ''}
+
+                <h3 class="serif-title text-4xl mb-4">
+                  ${card.name}
+                </h3>
+
+                <p class="text-lg text-cyan-100 mb-6 leading-8">
+                  ✦ ${card.shortMessage}
+                </p>
+
+                <div class="space-y-5 text-white/85 leading-8 text-[15px] md:text-base">
+
+                  <div>
+                    <div class="text-cyan-100 mb-2 font-semibold tracking-wide">
+                      深層解讀
+                    </div>
+                    <p>${card.description}</p>
+                  </div>
+
+                  <div>
+                    <div class="text-cyan-100 mb-2 font-semibold tracking-wide">
+                      行動建議
+                    </div>
+                    <p>${card.advice}</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================
+    // 單張抽牌
+    // =========================
+
+    singleBtn.addEventListener('click', () => {
+
+      resultArea.innerHTML = '';
+      changeBackground();
+
+      const card = getRandomCard();
+
+      resultArea.innerHTML = `
+        <div class="max-w-md mx-auto">
+          ${createCard(card)}
+        </div>
+      `;
+
+      activateFlip();
+    });
+
+    // =========================
+    // 三張牌模式
+    // =========================
+
+    tripleBtn.addEventListener('click', () => {
+
+      resultArea.innerHTML = '';
+      changeBackground();
+
+      const card1 = getRandomCard();
+      const card2 = getRandomCard();
+      const card3 = getRandomCard();
+
+      resultArea.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+          ${createCard(card1, '現在')}
+
+          ${createCard(card2, '阻礙')}
+
+          ${createCard(card3, '方向')}
+
+        </div>
+      `;
+
+      activateFlip();
+    });
+
+    // =========================
+    // 重置
+    // =========================
+
+    resetBtn.addEventListener('click', () => {
+      resultArea.innerHTML = `
+        <div class="glass-card rounded-3xl p-10 max-w-2xl mx-auto fade-in">
+          <div class="serif-title text-4xl mb-6">
+            海面再次歸於平靜
+          </div>
+
+          <p class="text-white/75 leading-8 text-lg">
+            當你準備好了，請再次抽一座島。<br>
+            每一次相遇，都會看見不同的自己。
+          </p>
+        </div>
+      `;
+
+      usedCards = [];
+    });
+
+    // =========================
+    // 翻牌事件
+    // =========================
+
+    function activateFlip() {
+      const cards = document.querySelectorAll('.flip-card');
+
+      cards.forEach(card => {
+        setTimeout(() => {
+          card.classList.add('flipped');
+        }, 300);
+
+        card.addEventListener('click', () => {
+          card.classList.toggle('flipped');
+        });
+      });
+    }
+
+    // 初始提示
+    resultArea.innerHTML = `
+      <div class="glass-card rounded-3xl p-10 max-w-2xl mx-auto fade-in">
+        <div class="serif-title text-4xl mb-6">
+          今晚的海，很安靜
+        </div>
+
+        <p class="text-white/75 leading-8 text-lg">
+          深呼吸，靜下心。<br>
+          當你準備好，就讓海上的島嶼回應你此刻的狀態。
+        </p>
+      </div>
+    `;
+
+  </script>
+</body>
+</html>
+```
+
